@@ -174,7 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2373856059252714639}
   m_Layer: 0
-  m_Name: levelPart_flat_d
+  m_Name: levelPart_flat_b
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
