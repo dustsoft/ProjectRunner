@@ -5,17 +5,25 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     #region Components
-    Rigidbody2D rb;
+
+    public Rigidbody2D rb;
     Animator _anim;
     SpriteRenderer sr;
     private Coroutine hurtAnimCoroutine;
+
     #endregion
 
+    [Header("Camera Shake Info")]
+    [SerializeField] CameraShake _cameraShakeScript;
+    [SerializeField] float screenShakeIntesity = 7f;
+    [SerializeField] float screenSakeTime = 0.1f;
+
+    #region Variables
     [Header("Movement Info")]
     public float moveSpeed;
     public float maxMoveSpeed;
     float defaultMoveSpeed;
-    bool canRun = false;
+    public bool canRun = false;
     bool isRunning;
     bool canRoll;
 
@@ -34,6 +42,7 @@ public class Player : MonoBehaviour
 
 
     [Header("Knockback Info")]
+
     [SerializeField]Vector2 knockBackDirection;
     [SerializeField] float knockBackPower;
     bool canBeKnocked = true;
@@ -62,7 +71,6 @@ public class Player : MonoBehaviour
     bool isGrounded;
     bool isCeillingDetected;
 
-
     [Header("Ledge Climb Info")]
     [SerializeField] Transform ledgeCheck;
 
@@ -70,30 +78,29 @@ public class Player : MonoBehaviour
     bool isLedgeDetected;
     bool canClimbLedge;
 
-    Vector2 ledgePosBot;
-    Vector2 ledgePost1; // position to hold the player before animation ends
-    Vector2 ledgePos2; // position where to move player after animation ends
 
     public float ledgeClimb_Xoffset1 = 0f;
     public float ledgeClimb_Yoffset1 = 0f;
     public float ledgeClimb_Xoffset2 = 0f;
     public float ledgeClimb_Yoffset2 = 0f;
+    #endregion
+
+    Vector2 ledgePosBot;
+    Vector2 ledgePost1; // position to hold the player before animation ends
+    Vector2 ledgePos2; // position where to move player after animation ends
 
     void Start()
     {
+
+        SettingDefaultValues();
+
         rb = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
-
-        SettingDefaultValues();
     }
 
     void Update()
     {
-        if (Input.anyKey && !isKnocked)
-        {
-            canRun = true;
-        }
         CheckForRun();
         CheckForJump();
         CheckForSlide();
@@ -141,6 +148,7 @@ public class Player : MonoBehaviour
             isKnocked = true;
             HurtVFX();
             SpeedReset();
+            CameraShake.Instance.ShakeCamera(screenShakeIntesity, screenSakeTime); // Camera Shake FX
         }
     }
 
@@ -364,10 +372,11 @@ public class Player : MonoBehaviour
     {
         if (hurtAnimCoroutine != null)
         {
-            StopCoroutine(hurtAnimCoroutine);
-        } // stops active coroutine before activating new one
+            StopCoroutine(hurtAnimCoroutine); // stops active coroutine before activating new one
+        }   
 
         
         hurtAnimCoroutine = StartCoroutine(HurtVFXRoutine()); // starts coroutine
     }
+
 }
