@@ -52,9 +52,9 @@ public class UI : MonoBehaviour
     {
         SwitchUI(endGameUI);
 
-        _endScreenCoins.text = "Coins: " + GameManager.instance.coins;
-        _endScreenScore.text = "Distance: " + GameManager.instance.score + " m";
-        _endScreenFinalScore.text = "Final Score: " + GameManager.instance.finalScore;
+        _endScreenCoins.text = ": " + GameManager.instance.coins.ToString("#,#");
+        _endScreenScore.text = ": " + Mathf.Round(GameManager.instance.score).ToString("#,#") + " meters";
+        _endScreenFinalScore.text = ": " + GameManager.instance.finalScore.ToString("#,#");
     }
 
     public void PlayAgainButton()

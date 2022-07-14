@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        Time.timeScale = 1;
     }
 
     void Start()
@@ -56,7 +58,7 @@ public class GameManager : MonoBehaviour
 
         UI.EndGameCalculations(); // final score passing to UI
 
-
+        Time.timeScale = 0;  // stops the time
     }
 
     void CheckForScore()
