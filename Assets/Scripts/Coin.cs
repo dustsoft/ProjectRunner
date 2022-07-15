@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    [SerializeField] float chanceToSpawn = 50;
+    [SerializeField] float chanceToSpawn = 50; // only variable used in this class is the "chanceToSpawn" float variable
 
     void Start()
     {
@@ -14,7 +14,7 @@ public class Coin : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {

@@ -12,11 +12,13 @@ public class UI : MonoBehaviour
     [SerializeField] GameObject[] menuItems;
     #endregion
 
+    #region Text Items
     [SerializeField] Text _score;
     [SerializeField] Text coins;
     [SerializeField] Text _endScreenCoins;
     [SerializeField] Text _endScreenScore;
     [SerializeField] Text _endScreenFinalScore;
+    #endregion
 
     void Start()
     {

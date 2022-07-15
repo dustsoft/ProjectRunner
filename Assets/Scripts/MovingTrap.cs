@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class MovingTrap : MonoBehaviour
 {
-    [Header("Trap Info")]
     #region Variables
-    [SerializeField] private Transform[] movePoints;
-    [SerializeField] private int nextPosition;
-    [SerializeField] private float trapSpeed;
-    [SerializeField] private float rotationMulipler;
-    [SerializeField] private float chanceToSpawn = 25f;
-    private Player player;
+    [Header("Trap Info")]
+    [SerializeField] Transform[] movePoints;
+    [SerializeField] int nextPosition;
+    [SerializeField] float trapSpeed;
+    [SerializeField] float rotationMulipler;
+    [SerializeField] float chanceToSpawn = 25f;
+    Player player;
     #endregion
 
     void Start()
@@ -48,8 +48,7 @@ public class MovingTrap : MonoBehaviour
         }
     }
 
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {

@@ -5,9 +5,14 @@ using UnityEditor.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    #region Variables
+    Player player;
+    [SerializeField] UI UI;
+    [SerializeField] string mainScene;
+    [SerializeField] GameObject playerGameObject;
+    [SerializeField] GameObject _levelAreaGameObject;
     public static GameManager instance;
-    private Player player;
-    private UI UI;
+    #endregion
 
     #region Coin Info
     [Header("Coins")]
@@ -20,10 +25,7 @@ public class GameManager : MonoBehaviour
     public float finalScore;
     #endregion
 
-    [SerializeField] private string mainScene;
-
-
-    private void Awake()
+    void Awake()
     {
         instance = this;
 
@@ -35,7 +37,6 @@ public class GameManager : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<Player>();
         UI = GameObject.Find("Canvas").GetComponent<UI>();
     }
-
 
     void Update()
     {
@@ -54,11 +55,14 @@ public class GameManager : MonoBehaviour
 
     public void GameEnds()
     {
+        playerGameObject.SetActive(false); // Setting the "Player" GameObject to unactive as a solution to stopping the game while allowing the mainMenuButton animation
+        _levelAreaGameObject.SetActive(false); // this deactivates the Level Area GameObject, a solution to optimize ram while on the end screen
+
         finalScore = Mathf.RoundToInt(score * coins); // calculation of final score
 
         UI.EndGameCalculations(); // final score passing to UI
 
-        Time.timeScale = 0;  // stops the time
+        //Time.timeScale = 0;  // stops the time | However it wasn't allowing my mainMenuButton animation to play
     }
 
     void CheckForScore()

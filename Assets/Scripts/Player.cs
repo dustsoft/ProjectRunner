@@ -13,10 +13,12 @@ public class Player : MonoBehaviour
 
     #endregion
 
+    #region Camera Shake Items
     [Header("Camera Shake Info")]
     [SerializeField] CameraShake _cameraShakeScript;
     [SerializeField] float screenShakeIntesity = 7f;
     [SerializeField] float screenSakeTime = 0.1f;
+    #endregion
 
     #region Variables
     [Header("Movement Info")]
@@ -87,7 +89,7 @@ public class Player : MonoBehaviour
 
     Vector2 ledgePosBot;
     Vector2 ledgePost1; // position to hold the player before animation ends
-    Vector2 ledgePos2; // position where to move player after animation ends
+    Vector2 ledgePos2;  // position where to move player after animation ends
 
     void Start()
     {
@@ -110,7 +112,7 @@ public class Player : MonoBehaviour
         CheckForCollision();
     }
 
-    private void SettingDefaultValues()
+    void SettingDefaultValues()
     {
         defaultJumpForce = jumpForce;
         defaultMoveSpeed = moveSpeed;
@@ -118,7 +120,7 @@ public class Player : MonoBehaviour
         speedMilestone = defaultSpeedIncreaseMileston;
     }
 
-    private void AnimationControllers()
+    void AnimationControllers()
     {
         _anim.SetFloat("xVelocity", rb.velocity.x);
         _anim.SetFloat("yVelocity", rb.velocity.y);
@@ -136,7 +138,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void RollAnimationFinished()
+    void RollAnimationFinished()
     {
         canRoll = false;
     }
@@ -152,13 +154,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void KnockBackAnimationFinished()
+    void KnockBackAnimationFinished()
     {
         isKnocked = false;
         canRun = true;
     }
 
-    private void CheckForRun()
+    void CheckForRun()
     {
         if (isKnocked && canBeKnocked)
         {
@@ -193,7 +195,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void CheckForJump()
+    void CheckForJump()
     {
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0) && !isKnocked)
@@ -217,7 +219,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void CheckForSlide()
+    void CheckForSlide()
     {
         if (Input.GetKey(KeyCode.LeftShift) && canSlide && isGrounded && rb.velocity.x > defaultMoveSpeed)
         {
@@ -237,7 +239,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void CheckForSpeedingUp()
+    void CheckForSpeedingUp()
     {
         if (transform.position.x > speedMilestone)
         {
@@ -252,7 +254,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void CheckForLedgeClimb()
+    void CheckForLedgeClimb()
     {
         if (isLedgeDetected && !canClimbLedge)
         {
@@ -270,7 +272,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void CheckIfLedgeClimbFinished()
+    void CheckIfLedgeClimbFinished()
     {
         transform.position = ledgePos2;
         canClimbLedge = false;
@@ -278,19 +280,19 @@ public class Player : MonoBehaviour
         isLedgeDetected = false;
     }
 
-    private void Jump()
+    void Jump()
     {
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
 
     }
 
-    private void SpeedReset()
+    void SpeedReset()
     {
         moveSpeed = defaultMoveSpeed;
         speedIncreaseMilestone = defaultSpeedIncreaseMileston;
     }
 
-    private void CheckForCollision()
+    void CheckForCollision()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
         isBottomWallDetected = Physics2D.Raycast(bottomWallCheck.position, Vector2.right, wallCheckDistance, whatIsGround);
@@ -307,7 +309,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private IEnumerator HurtVFXRoutine()
+    IEnumerator HurtVFXRoutine()
     {
         sr.color = Color.white;
 
@@ -358,7 +360,7 @@ public class Player : MonoBehaviour
         hurtAnimCoroutine = null;
     }
 
-    private void OnDrawGizmos()
+    void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
         Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
@@ -378,5 +380,4 @@ public class Player : MonoBehaviour
         
         hurtAnimCoroutine = StartCoroutine(HurtVFXRoutine()); // starts coroutine
     }
-
 }

@@ -5,9 +5,11 @@ using Cinemachine;
 
 public class CameraShake : MonoBehaviour
 {
+    #region Variables
     public static CameraShake Instance { get; private set; }
-    private CinemachineVirtualCamera _cinemachineVirtualCamera;
-    private float _shakeTimer;
+    CinemachineVirtualCamera _cinemachineVirtualCamera;
+    float _shakeTimer;
+    #endregion
 
     void Awake()
     {
@@ -22,21 +24,17 @@ public class CameraShake : MonoBehaviour
         _shakeTimer = time;
     }
 
-    private void Update()
+    void Update()
     {
         if (_shakeTimer > 0)
         {
             _shakeTimer -= Time.deltaTime;
+
             if (_shakeTimer <= 0f)
             {
-                //Shake Time Over!
                 CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin = _cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
                 cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = 0f;
-
             }
         }
-
-
     }
-
 }

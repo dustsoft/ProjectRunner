@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
+    #region Variables
     public Transform[] levelParts;
     private GameObject player;
-
     public Vector3 nextPartPosition;
-
     public float nextPartDrawDistance;
     public float partDeleteDistance;
+    #endregion
 
     void Start()
     {
@@ -23,7 +23,7 @@ public class LevelGenerator : MonoBehaviour
         GeneratePart();
     }
 
-    private void GeneratePart()
+    void GeneratePart()
     {
         while ((nextPartPosition.x - player.transform.position.x) < nextPartDrawDistance)
         {
@@ -31,11 +31,10 @@ public class LevelGenerator : MonoBehaviour
             Transform newPart = Instantiate(part, nextPartPosition - part.Find("Start Point").position, transform.rotation, transform);
 
             nextPartPosition = newPart.Find("End Point").position;
-
         }
     }
 
-    private void DeletePart()
+    void DeletePart()
     {
         if (transform.childCount > 0)
         {

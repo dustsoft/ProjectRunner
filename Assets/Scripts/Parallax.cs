@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
-    private float length, startPos;
-    private GameObject cam;
-
+    #region Variables
+    GameObject cam;
+    float length, startPos;
     public float parallaxEffect;
+    #endregion
 
     void Start()
     {
@@ -20,7 +21,6 @@ public class Parallax : MonoBehaviour
     void FixedUpdate()
     {
         float temp = (cam.transform.position.x) * (1 - parallaxEffect); // how far we moved relativly to the camera
-
         float distance = (cam.transform.position.x * parallaxEffect);
 
         transform.position = new Vector3(startPos + distance, transform.position.y, transform.position.z);
