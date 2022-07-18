@@ -198,7 +198,7 @@ public class Player : MonoBehaviour
     void CheckForJump()
     {
 
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0) && !isKnocked)
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse1) && !isKnocked)
         {
             if (isGrounded)
             {
@@ -221,7 +221,7 @@ public class Player : MonoBehaviour
 
     void CheckForSlide()
     {
-        if (Input.GetKey(KeyCode.LeftShift) && canSlide && isGrounded && rb.velocity.x > defaultMoveSpeed)
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Mouse0) && canSlide && isGrounded && rb.velocity.x > defaultMoveSpeed)
         {
             isSliding = true;
             canSlide = false;

@@ -17,12 +17,14 @@ public class GameManager : MonoBehaviour
     #region Coin Info
     [Header("Coins")]
     public int coins;
+    //public int ownedCoins;
     #endregion
 
     #region Score Info
     bool canIncreaseScore;
     public float score;
-    public float finalScore;
+    public int lastScore;
+    public int highSchore;
     #endregion
 
     void Awake()
@@ -36,6 +38,8 @@ public class GameManager : MonoBehaviour
     {
         player = GameObject.Find("Player").GetComponent<Player>();
         UI = GameObject.Find("Canvas").GetComponent<UI>();
+
+        LoadValues(); //loads values of player prefs
     }
 
     void Update()
@@ -58,11 +62,13 @@ public class GameManager : MonoBehaviour
         playerGameObject.SetActive(false); // Setting the "Player" GameObject to unactive as a solution to stopping the game while allowing the mainMenuButton animation
         _levelAreaGameObject.SetActive(false); // this deactivates the Level Area GameObject, a solution to optimize ram while on the end screen
 
-        finalScore = Mathf.RoundToInt(score * coins); // calculation of final score
+        lastScore = Mathf.RoundToInt(score * coins); // calculation of final score
 
         UI.EndGameCalculations(); // final score passing to UI
 
         //Time.timeScale = 0;  // stops the time | However it wasn't allowing my mainMenuButton animation to play
+
+        SaveValues();
     }
 
     void CheckForScore()
@@ -80,6 +86,22 @@ public class GameManager : MonoBehaviour
         {
             canIncreaseScore = false;
         }
+    }
+
+    void SaveValues()
+    {
+        PlayerPrefs.SetInt("lastScore", lastScore);
+
+        if (lastScore > highSchore)
+        {
+            PlayerPrefs.SetInt("highScore", lastScore);
+        }
+    }
+
+    void LoadValues()
+    {
+        lastScore = PlayerPrefs.GetInt("lastScore");
+        highSchore = PlayerPrefs.GetInt("highScore");
     }
 
 }
