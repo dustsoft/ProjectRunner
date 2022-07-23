@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<Player>();
         UI = GameObject.Find("Canvas").GetComponent<UI>();
 
+        AudioManager.instance.PlayBGM(Random.Range(0,2));
+
         LoadValues(); //loads values of player prefs
     }
 

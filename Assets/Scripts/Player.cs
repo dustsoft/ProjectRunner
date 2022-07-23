@@ -282,8 +282,8 @@ public class Player : MonoBehaviour
 
     void Jump()
     {
+        AudioManager.instance.PlaySFX(1);
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-
     }
 
     void SpeedReset()

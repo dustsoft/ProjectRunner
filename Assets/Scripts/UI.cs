@@ -59,6 +59,7 @@ public class UI : MonoBehaviour
     public void MuteButton()
     {
         isMuted = !isMuted; // works like a switcher
+        AudioListener.pause = isMuted;
 
         #region Mute Icon Controller
         Image muteIcon = GameObject.Find("muteIcon").GetComponent<Image>();
@@ -116,6 +117,8 @@ public class UI : MonoBehaviour
         {
             menuItems[i].SetActive(false);
         }
+
+        AudioManager.instance.PlaySFX(8);
 
         uiToActivate.SetActive(true);
 

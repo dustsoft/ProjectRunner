@@ -19,6 +19,7 @@ public class Coin : MonoBehaviour
         if (collision.tag == "Player")
         {
             GameManager.instance.coins++;
+            AudioManager.instance.PlaySFX(0);
             Destroy(this.gameObject);
         }
     }
